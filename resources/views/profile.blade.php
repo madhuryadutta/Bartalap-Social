@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @push('title')
-    <title>Home </title>
+    <title>Profile </title>
 @endpush
 @section('main-section')
 

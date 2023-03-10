@@ -26,6 +26,17 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::get('/aa',function(){
+
+
+Route::get('/home',function(){
     return view ('home');
+});
+Route::get('/profile',function(){
+    return view ('profile');
+});
+Route::get('/contact',function(){
+    return view ('contacts');
+});
+Route::get('/chat',function(){
+    return view ('chat2');
 });

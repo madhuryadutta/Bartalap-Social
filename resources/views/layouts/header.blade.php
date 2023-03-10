@@ -13,13 +13,14 @@
   <link rel="stylesheet" href="{{url('frontend/dist/css/adminlte.min.css')}}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{url('frontend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <link rel="stylesheet" href="{{url('frontend/chat.css')}}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode" data-panel-auto-height-mode="height">
 
     {{-- for dark mode 
     <body class="hold-transition sidebar-mini layout-fixed dark-mode" data-panel-auto-height-mode="height"> --}}
 
-<div class="wrapper">
+
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand  justify-content-center">
@@ -172,24 +173,6 @@
   </nav>
   <!-- /.navbar -->
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- jQuery -->
 <script src="{{url('frontend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -198,13 +181,6 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
-<!-- Bootstrap 4 -->
-<script src="{{url('frontend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- overlayScrollbars -->
-<script src="{{url('frontend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{url('frontend/dist/js/adminlte.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{url('frontend/dist/js/demo.js')}}"></script>
+
 </body>
 </html>
