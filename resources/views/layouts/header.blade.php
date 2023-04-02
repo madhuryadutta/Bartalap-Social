@@ -30,7 +30,7 @@
         <a class="nav-link"  href="#" role="button"><i class="fas fa-bars"></i></a>
       </li> --}}
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="/home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -178,9 +178,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{url('frontend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+<script> $.widget.bridge('uibutton', $.ui.button)</script>
 
 </body>
 </html>
