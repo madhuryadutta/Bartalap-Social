@@ -40,6 +40,7 @@ Route::get('/home', function () {
 Route::get('/profile', [ProfileController::class, 'viewProfile'])->name('profile.view');
 Route::get('/editprofile', [ProfileController::class, 'index'])->name('profile.edit');
 Route::post('/editprofile', [ProfileController::class, 'store'])->name('profile.save');
+Route::post('/search', [ProfileController::class, 'search'])->name('profile.search');
 
 // Home Routes for post and newsfeed
 

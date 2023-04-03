@@ -15,15 +15,16 @@ class ProfileController extends Controller
     {
         $session_id = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
 
-        $profile = DB::table('profiles')->where('id',$session_id)->first();
-        $user = DB::table('users')->where('id',$session_id)->first();
-        $data= compact('profile','user');
+        $profile = DB::table('profiles')->where('id', $session_id)->first();
+        $user = DB::table('users')->where('id', $session_id)->first();
+        $data = compact('profile', 'user');
         return view('profile')->with($data);
     }
     public function index()
     {
         return view('profile_update_form');
     }
+
     public function store(Request $request)
     {
         $profile = new Profile;
@@ -38,5 +39,13 @@ class ProfileController extends Controller
         $profile->about_me = $request['about_me'];
         $profile->save();
         return view('profile');
+    }
+    public function search(Request $request)
+    {
+        $q = $request['people'];
+        $user = User::where('name', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->get();
+        if (count($user) > 0)
+            return view('welcome')->withDetails($user)->withQuery($q);
+        else return view('welcome')->withMessage('No Details found. Try to search again !');
     }
 }

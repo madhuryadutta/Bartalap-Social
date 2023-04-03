@@ -41,9 +41,10 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <a class="nav-link" data-widget="navbar-search" href="#" role="button"  data-toggle="modal" data-target="#exampleModal">
           <i class="fas fa-search"></i>
         </a>
+       
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
@@ -172,6 +173,36 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Find People</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{-- <input type="text" name="people" id="people" ></textarea>
+          <button type="button" class="btn btn-primary">Search</button> --}}
+        
+          <form action="{{url('/')}}/search" method="POST" role="search">
+            {{ csrf_field() }}
+            <div class="input-group">
+                <input type="text" class="form-control" name="people" id="people"
+                    placeholder="Search users"> <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search
+                    </button>
+                </span>
+            </div>
+        </form></div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
     
 <!-- jQuery -->
 <script src="{{url('frontend/plugins/jquery/jquery.min.js')}}"></script>
