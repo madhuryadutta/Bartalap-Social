@@ -1,362 +1,387 @@
-@extends('layouts.main')
+@extends('common.main')
 @push('title')
-    <title>Profile </title>
+<title>Profile</title>
+@endpush
+@push('jsfile')
+<script src="{{ asset('assets/js/profile.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/css/profilestyle.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 @endpush
 @section('main-section')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-md-12">
-                    <section class="section about-section gray-bg" id="about">
-                        <div class="container">
-                            <div class="row align-items-center flex-row-reverse">
-                                <div class="col-lg-6">
-                                    <div class="about-text go-to">
-                                        <h3 class="dark-color">About Me <a href="editprofile"><button class="btn btn-primary">Edit Profile</button></a></h3> 
-                                        <h6 class="theme-color lead">{{$profile->about_me}}</h6>
-                                        {{-- <p>I <mark>design and develop</mark> services for customers of all sizes,
-                                            specializing in creating stylish, modern websites, web services and online
-                                            stores. My passion is to design digital user experiences through the bold
-                                            interface and meaningful interactions.</p> --}}
-                                        <div class="row about-list">
-                                            <div class="col-md-6">
-                                                <div class="media">
-                                                    <label>Birthday</label>
-                                                    <p>{{$profile->dob}}</p>
-                                                </div>
-                                                <div class="media">
-                                                    <label>Age</label>
-                                                    <p>22 Yr</p>
-                                                </div>
-                                                <div class="media">
-                                                    <label>Gender</label>
-                                                    <p> {{$profile->gender}}</p>
-                                                </div>
-                                                <div class="media">
-                                                    <label>Current City</label>
-                                                    <p> {{$profile->current_city}}</p>
-                                                </div>
-                                                <div class="media">
-                                                    <label>Home Town</label>
-                                                    <p> {{$profile->hometown}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="media">
-                                                    <label>E-mail</label>
-                                                    <p>{{$user->email}}</p>
-                                                </div>
-                                                <div class="media">
-                                                    <label>Phone</label>
-                                                    <p>{{$profile->phone_no}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="about-avatar">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title=""
-                                            alt="">
-                                    </div>
-                                </div>
+<div id="content" class="container pt-5 mt-5">
+    <div class="profile-header">
+        <div class="profile-header-cover">
+            <img src="" center no-repeat id="cover_photo" height="600px" width="350px" alt="">
+        </div>
+
+        <div class="profile-header-content">
+            <div class="profile-header-img">
+                <img src="" center no-repeat id="profile_pic" alt="">
+                <button data-toggle="modal" id="profile_photo_edit" class="absolute bottom-0 right-0  bg-white px-3 py-0 text-sm text-blue-500 shadow-sm rounded hover:bg-blue-800 m-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+                    Edit
+                </button>
+
+            </div>
+
+            <div class="profile-header-info">
+                <h4 class="m-t-sm" id="FullName"></h4>
+                <p class="m-b-sm" id="TagLine">@<span id="usernameonTop"></span></p>
+                <a class="btn btn-xs btn-primary mb-4" data-toggle="modal" id="open_public_profile_edit">Edit
+                    Profile</a>
+            </div>
+        </div>
+        <button data-toggle="modal" id="cover_photo_edit" class="absolute bottom-7 right-0  bg-white px-3 py-0 text-sm text-blue-500 shadow-sm rounded hover:bg-blue-800 m-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+            Edit
+        </button>
+
+        <ul class="profile-header-tab nav nav-tabs">
+            <li class="active"><a href="#1a" data-toggle="tab" class="nav-link_">POSTS</a></li>
+            <li class="nav-item"><a href="#2a" data-toggle="tab" class="nav-link_">ABOUT</a></li>
+            <li class="nav-item"><a href="#3a" data-toggle="tab" class="nav-link_">PHOTOS</a></li>
+            <li class="nav-item"><a href="#4a" data-toggle="tab" class="nav-link_">FRIENDS</a></li>
+
+    </div>
+</div>
+
+<div class="container pt-5 mt-5">
+    <div class="tab-content clearfix">
+        <div class="tab-pane active" id="1a">
+            <div class="container">
+                <!-- begin tab-content -->
+                <div class="tab-content p-0">
+                    <!-- begin #profile-post tab -->
+                    <div class="tab-pane fade active show" id="profile-post">
+                        <!-- begin timeline -->
+                        <ul class="timeline">
+
+                        </ul>
+                        <!-- end timeline -->
+                    </div>
+                    <!-- end #profile-post tab -->
+                </div>
+                <!-- end tab-content -->
+            </div>
+            <!-- end profile-content -->
+        </div>
+
+
+
+        <div class="tab-pane" id="2a">
+            <div class="tab-content p-0">
+
+                <!-- begin #profile-about tab -->
+                <div class="tab-pane fade in active show" id="profile-about">
+                    <!-- begin table -->
+                    <div class="table-responsive">
+                        <table class="table table-profile">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <h4><span id=User_full_name></span></h4>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr class="highlight">
+                                    <td class="field">About Me</td>
+                                    <td><span id="user_about_me"></span></td>
+                                </tr>
+                                <tr class="divider">
+                                    <td colspan="2"></td>
+                                </tr> -->
+                                <tr>
+                                    <td class="field">Mobile</td>
+                                    <td><i class="fa fa-mobile fa-lg m-r-5"></i> <span id="user_phone_number"></span></td>
+                                </tr>
+
+                                <tr class="divider">
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td class="field">About Me</td>
+                                    <td><span id="user_about_me"></span></td>
+                                </tr>
+                                <tr class="divider">
+                                    <td colspan="2"></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td class="field">Country/Region</td>
+                                    <td>
+                                        <span id="user_country">
+
+                                        </span>
+                                        <select class="form-control input-inline input-xs" name="region">
+                                            <option value="US" selected="">United State</option>
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AS">American Samoa</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AI">Anguilla</option>
+                                            <option value="AQ">Antarctica</option>
+                                            <option value="AG">Antigua and Barbuda</option>
+                                        </select>
+                                    </td>
+                                </tr> -->
+                                <tr>
+                                    <td class="field">Current City</td>
+                                    <td>
+                                        <span id="user_current_city"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Home Town</td>
+                                    <td><span id="user_home_town"></a></td>
+                                </tr>
+
+                                <!-- <tr>
+                                    <td class="field">Website</td>
+                                    <td><a href="javascript:;">Add Webpage</a></td>
+                                </tr> -->
+                                <tr>
+                                    <td class="field">Gender</td>
+                                    <td> <span id="user_gender"></span> </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td class="field">Birthdate</td>
+                                    <td>
+                                        <select class="form-control input-inline input-xs" name="day">
+                                            <option value="04" selected="">04</option>
+                                        </select>
+                                        -
+                                        <select class="form-control input-inline input-xs" name="month">
+                                            <option value="11" selected="">11</option>
+                                        </select>
+                                        -
+                                        <select class="form-control input-inline input-xs" name="year">
+                                            <option value="1989" selected="">1989</option>
+                                        </select>
+                                    </td>
+                                </tr> -->
+                                <!-- <tr>
+                                    <td class="field">Language</td>
+                                    <td>
+                                        <select class="form-control input-inline input-xs" name="language">
+                                            <option value="" selected="">English</option>
+                                        </select>
+                                    </td>
+                                </tr> -->
+                                <tr class="divider">
+                                    <td colspan="2"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end table -->
+                </div>
+                <!-- end #profile-about tab -->
+            </div>
+            <!-- end tab-content -->
+        </div>
+        <div class="tab-pane" id="3a">
+            <div class="profile-container">
+                <div class="row row-space-20">
+                    <div class="col-md-12">
+                        <div class="tab-content p-0">
+                            <div class="tab-pane active show" id="profile-photos">
+                                <div class="m-b-10"><b>Photos <span id="media_count"><span></b></div>
+                                <ul class="img-grid-list">
+
+                                </ul>
                             </div>
                         </div>
-                    </section>
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                {{-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li> --}}
-                            </ul>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <div class="active tab-pane" id="activity">
-                                    <!-- Post -->
-                                    <div class="post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg"
-                                                alt="user image">
-                                            <span class="username">
-                                                <a href="#">Jonathan Burke Jr.</a>
-                                                <a href="#" class="float-right btn-tool"><i
-                                                        class="fas fa-times"></i></a>
-                                            </span>
-                                            <span class="description">Shared publicly - 7:30 PM today</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum represents a long-held tradition for designers,
-                                            typographers and the like. Some people hate it and argue for
-                                            its demise, but others ignore the hate as they create awesome
-                                            tools to help create filler text for everyone from bacon lovers
-                                            to Charlie Sheen fans.
-                                        </p>
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm mr-2"><i
-                                                    class="fas fa-share mr-1"></i> Share</a>
-                                            <a href="#" class="link-black text-sm"><i
-                                                    class="far fa-thumbs-up mr-1"></i> Like</a>
-                                            <span class="float-right">
-                                                <a href="#" class="link-black text-sm">
-                                                    <i class="far fa-comments mr-1"></i> Comments (5)
-                                                </a>
-                                            </span>
-                                        </p>
-
-                                        <input class="form-control form-control-sm" type="text"
-                                            placeholder="Type a comment">
-                                    </div>
-                                    <!-- /.post -->
-
-                                    <!-- Post -->
-                                    <div class="post clearfix">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg"
-                                                alt="User Image">
-                                            <span class="username">
-                                                <a href="#">Sarah Ross</a>
-                                                <a href="#" class="float-right btn-tool"><i
-                                                        class="fas fa-times"></i></a>
-                                            </span>
-                                            <span class="description">Sent you a message - 3 days ago</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum represents a long-held tradition for designers,
-                                            typographers and the like. Some people hate it and argue for
-                                            its demise, but others ignore the hate as they create awesome
-                                            tools to help create filler text for everyone from bacon lovers
-                                            to Charlie Sheen fans.
-                                        </p>
-
-                                        <form class="form-horizontal">
-                                            <div class="input-group input-group-sm mb-0">
-                                                <input class="form-control form-control-sm" placeholder="Response">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-danger">Send</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.post -->
-
-                                    <!-- Post -->
-                                    <div class="post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg"
-                                                alt="User Image">
-                                            <span class="username">
-                                                <a href="#">Adam Jones</a>
-                                                <a href="#" class="float-right btn-tool"><i
-                                                        class="fas fa-times"></i></a>
-                                            </span>
-                                            <span class="description">Posted 5 photos - 5 days ago</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <div class="row mb-3">
-                                            <div class="col-sm-6">
-                                                <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                                            </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-6">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <img class="img-fluid mb-3" src="../../dist/img/photo2.png"
-                                                            alt="Photo">
-                                                        <img class="img-fluid" src="../../dist/img/photo3.jpg"
-                                                            alt="Photo">
-                                                    </div>
-                                                    <!-- /.col -->
-                                                    <div class="col-sm-6">
-                                                        <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg"
-                                                            alt="Photo">
-                                                        <img class="img-fluid" src="../../dist/img/photo1.png"
-                                                            alt="Photo">
-                                                    </div>
-                                                    <!-- /.col -->
-                                                </div>
-                                                <!-- /.row -->
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- /.row -->
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm mr-2"><i
-                                                    class="fas fa-share mr-1"></i> Share</a>
-                                            <a href="#" class="link-black text-sm"><i
-                                                    class="far fa-thumbs-up mr-1"></i> Like</a>
-                                            <span class="float-right">
-                                                <a href="#" class="link-black text-sm">
-                                                    <i class="far fa-comments mr-1"></i> Comments (5)
-                                                </a>
-                                            </span>
-                                        </p>
-
-                                        <input class="form-control form-control-sm" type="text"
-                                            placeholder="Type a comment">
-                                    </div>
-                                    <!-- /.post -->
-                                </div>
-                                <!-- /.tab-pane -->
-                                {{-- <div class="tab-pane" id="timeline">
-                  <!-- The timeline -->
-                  <div class="timeline timeline-inverse">
-                    <!-- timeline time label -->
-                    <div class="time-label">
-                      <span class="bg-danger">
-                        10 Feb. 2014
-                      </span>
                     </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-envelope bg-primary"></i>
 
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 12:05</span>
 
-                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                        <div class="timeline-body">
-                          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                          weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                          jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                          quora plaxo ideeli hulu weebly balihoo...
-                        </div>
-                        <div class="timeline-footer">
-                          <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                          <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-user bg-info"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                        <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                        </h3>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-comments bg-warning"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                        <div class="timeline-body">
-                          Take me to your leader!
-                          Switzerland is small and neutral!
-                          We are more like Germany, ambitious and misunderstood!
-                        </div>
-                        <div class="timeline-footer">
-                          <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <!-- timeline time label -->
-                    <div class="time-label">
-                      <span class="bg-success">
-                        3 Jan. 2014
-                      </span>
-                    </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-camera bg-purple"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                        <div class="timeline-body">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <div>
-                      <i class="far fa-clock bg-gray"></i>
-                    </div>
-                  </div>
                 </div>
-                <!-- /.tab-pane -->
-
-                <div class="tab-pane" id="settings">
-                  <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputName" placeholder="Name">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <!-- /.tab-pane -->
-              </div>
-              <!-- /.tab-content -->
-            </div><!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+            </div>
         </div>
-        <!-- /.col -->
-      </div> --}}
-                                <!-- /.row -->
-                            </div><!-- /.container-fluid -->
-    </section>
-@endsection
+        <div class="tab-pane" id="4a">
+            <div class="tab-pane fade in active show" id="profile-friends">
+                <h4 class="m-t-0 m-b-20">Friend List <span id="friend_list_count"></span></h4>
+                <!-- begin row -->
+                <div class="row row-space-2" id="friendListData">
+
+                    <!-- Dynamic friendList  -->
+
+                    <!-- Dynamic friendList  -->
+
+
+                </div>
+                <!-- end col-6 -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end #profile-friends tab -->
+    </div>
+    <!-- end tab-content -->
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+<div>
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div id="updatePublicProfileInfo" class="modal fade bd-example-modal-lg" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Public Profile</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="text" class="form-control" placeholder="Username" id="username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="gender">Gender</label>
+                            <select id="gender" class="form-control">
+                                <option selected>Choose...</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="occupation">Occupation</label>
+                            <input type="text" class="form-control" id="occupation">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dob">DOB</label>
+                            <input type="date" class="form-control" id="dob">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="current_city">Current City</label>
+                            <input type="text" class="form-control" id="current_city">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="home_town">Home Town</label>
+                            <input type="text" class="form-control" id="home_town">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="relationship_status">Relationship Status</label>
+                            <select id="relationship_status" class="form-control">
+                                <option selected>Choose...</option>
+                                <option value="S">Single</option>
+                                <option value="M">Married</option>
+                                <option value="D">Divorced</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="phone_no">Phone No</label>
+                            <input type="text" class="form-control" id="phone_no">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="about_me">About Me</label>
+                            <input type="text" class="form-control" id="about_me">
+                        </div>
+                        <!-- </div>
+                </div> -->
+
+
+                        <!-- <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">@example.com</span>
+                    </div> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal_self_profile_update">Close</button>
+                        <button type="button" class="btn btn-primary" id="save_btn_for_self_profile_update">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile_photo_edit_Modal" class="modal fade bd-example-modal-lg" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Profile Photo upload</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container">
+                        <form method="post" action="" enctype="multipart/form-data" id="myform">
+                            <div class='preview'>
+                                <img src="" id="img" width="100" height="100">
+                            </div>
+                            <div class="form-group">
+                                <input type="file" id="file" name="file" />
+                                <input type="button" class="button btn btn-primary" value="Upload" id="profile_pic_upload_btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover_photo_edit_Modal" class="modal fade bd-example-modal-lg" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cover photo upload</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container">
+                        <form method="post" action="" enctype="multipart/form-data" id="myform">
+                            <div class='preview'>
+                                <img src="" id="img" width="100" height="100">
+                            </div>
+                            <div class="form-group">
+                                <input type="file" id="file1" name="file1" />
+                                <input type="button" class="button btn btn-primary" value="Upload" id="cover_pic_upload_btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @endsection

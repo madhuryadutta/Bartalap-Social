@@ -1,3 +1,7 @@
 *
-!public/
+public/
+uploads/
+userposts/
+privatemessage/
+media/
 !.gitignore

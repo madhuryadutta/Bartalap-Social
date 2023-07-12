@@ -3,30 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Post;
-use DB;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    //
-    public function index()
+    public function createpost(Request $request)
     {
-        $post = Post::all();
-        $user = User::all();
-        $data= compact('post','user');
-        return view('home')->with($data);
+        $current_user_id = auth()->id();
+        $dsk = $this->dsk;
+
+        $ipost_text = $request['text'];
+        // $ipost_location = $request['ipost_location'];
+        // $ivisibility = $request['ivisibility'];
+        // $ipromotional_status = $request['ipromotional_status'];
+        // $ipost_status = $request['ipost_status'];
+        $ipost_location = '1';
+        $ivisibility = 0;
+        $ipromotional_status = 0;
+        $ipost_status = '0';
+
+        $ipostid = rand();
+
+        $filename = "post." . time() . "." . $request->file('file')->getClientOriginalExtension();
+        $request->file('file')->storeAs('userposts', $filename);
+
+        $data = DB::select('call SaveUserPost(?,?,?,?,?,?,?,?,?,@outmsg)', array($current_user_id, $ipostid, $ipost_text, $filename, $ipost_location, $ivisibility, $ipromotional_status, $ipost_status, $dsk));
+
+        $outmsg = DB::select('select @outmsg as message ');
+
+        $resp_obj = array(
+            'data' => $data,
+            'outmsg' => $outmsg
+        );
+        echo json_encode($resp_obj);
     }
-    public function store(Request $request)
+    public function getSingleUserPosts(Request $request)
     {
-        $filename = time() . "-post." . $request->file('post_media')->getClientOriginalExtension();
-        $request->file('post_media')->storeAs('uploads', $filename);
-        $post = new Post;
-        $post->user_id = $request['user_id'];
-        $post->post_text = $request['post_text'];
-        $post->post_media = $filename;
-        $post->save();
-        // return view('home');
+        $zero_value = 0;
+        $iusername = $request['username'];
+        $dsk = $this->dsk;
+
+        $data = DB::select('call SingleUserPostsData(?,?,?,@outmsg)', array($zero_value, $iusername, $dsk));
+
+        $outmsg = DB::select('select @outmsg as message ');
+
+        $resp_obj = array(
+            'data' => $data,
+            'outmsg' => $outmsg
+        );
+        echo json_encode($resp_obj);
     }
 }

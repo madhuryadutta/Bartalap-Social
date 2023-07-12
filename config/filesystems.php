@@ -39,7 +39,22 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/uploads'),
+            'url' => env('APP_URL') . '/AlphaStorage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'userposts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/userposts'),
+            'url' => env('APP_URL') . '/userposts',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -71,7 +86,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('posts') => storage_path('app/uploads'),
+        public_path('AlphaStorage') => storage_path('app/uploads'),
+        public_path('userposts') => storage_path('app/userposts'),
     ],
 
 ];

@@ -2,7 +2,12 @@
 /public/build
 /public/hot
 /public/storage
+/public/AlphaStorage
+/public/userposts
 /storage/*.key
+/storage/app/public 
+/storage/app/uploads 
+/storage/app/userposts 
 /vendor
 .env
 .env.backup

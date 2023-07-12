@@ -2,50 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\Profile;
-use App\Models\User;
-use DB;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    //
-    public function viewProfile()
+    /**
+     * Display the user's profile form.
+     */
+    public function edit(Request $request): View
     {
-        $session_id = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
-
-        $profile = DB::table('profiles')->where('id', $session_id)->first();
-        $user = DB::table('users')->where('id', $session_id)->first();
-        $data = compact('profile', 'user');
-        return view('profile')->with($data);
-    }
-    public function index()
-    {
-        return view('profile_update_form');
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
     }
 
-    public function store(Request $request)
+    /**
+     * Update the user's profile information.
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $profile = new Profile;
-        $profile->id = $request['id'];
-        $profile->gender = $request['gender'];
-        $profile->occupation = $request['occupation'];
-        $profile->dob = $request['dob'];
-        $profile->marital_status = $request['marital_status'];
-        $profile->current_city = $request['current_city'];
-        $profile->hometown = $request['hometown'];
-        $profile->hometown = $request['hometown'];
-        $profile->about_me = $request['about_me'];
-        $profile->save();
-        return view('profile');
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-    public function search(Request $request)
+
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
     {
-        $q = $request['people'];
-        $user = User::where('name', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->get();
-        if (count($user) > 0)
-            return view('welcome')->withDetails($user)->withQuery($q);
-        else return view('welcome')->withMessage('No Details found. Try to search again !');
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current-password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }
