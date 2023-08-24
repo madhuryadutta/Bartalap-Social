@@ -1,0 +1,68 @@
+Management Site
+Home Page
+Display the summary.
+Member Management
+List All Members
+View Member Details
+Delete Member
+Post Management
+List All Posts
+View Post Details
+Delete Post
+User Management
+Add New User
+List All Users
+View User Details
+Edit User Details
+Delete User Details
+Update System Information
+Update Account Details/Credentials
+Login and Logout
+
+Public Site
+Login and Registration
+Home Page/Posts Feed
+Post Form Modal
+Drag and Drop File
+Post Details
+Like/Unlike Posts
+Leave Comments to a Post
+Profile Page
+Member's List of Posts
+Update Account Credentials
+Logout
+
+
+    1) Seamless single-click login: don’t ask for too much data on the initial stages, minimize your login form and make good UX from the very first minute;
+    2) Integration with other social networking channels: add Facebook or Youtube API to help people log in and synchronize their accounts on different channels;
+    3) Personal profile with photo, contact details, places users visited etc. Here, profile management and editing features are crucial;
+    4) Full-featured search: in order to make users networking on your site, help them find each other effortlessly. Implement a variety of search options like Surname, City, Educational Establishment, Occupation, Hobby etc and watch users’ networks grow.
+    5) The contact list is a major feature, too: after filtering existing users, every profile owner should be able to send contact requests and accept the ones he or she gets;
+    6) News Feed: thanks to it, the users will be able to share news from their lives, post media files, add updates etc;
+    7) Chats: with no exaggeration, this is your social media website's most important feature. Let users create both private and group chats to improve their experience;
+    8) File exchange: this is the extension to a standard chat. Let users share audio, video files, photos, books etc via their virtual dialogues;
+    9) Notifications are needed so users were always aware of the recent updates, messages, news etc. Push notifications, emails and SMSs are the most common options here.
+
+
+    1. Groups and subgroups. The ability to set up a group but also to set up subgroups. For example, if your community or network is targeted to people who love photography, you may want sub-groups that focus on wildlife photography or event photography, etc.
+    2. Moderation tools. One of the best things about having your own social network is not having to worry about random people trolling your Group or trying to defame your business. Having moderation tools such as shadow banning and editing comments on your own social network is a great way to eliminate any harmful activity.
+    3. Livestreaming. More and more people are accustomed to watching livestreams. Having a livestreaming option should be a must. It’s a great way to instantly connect with an audience and do product or fitness demos for example.
+    4. Customisation. The ability to customise the look and feel of your social network to fit your brand. You should be able to change colours, fonts and add your logo, as well as customising your domain name.
+    5. Security. It goes without saying that your platform should be highly secure and provide the option for data to be owned and managed by you.
+    6. Analytics. It’s really important for you to have access to data and analytics so you can track where your users are located, device type, and content they’re engaging with the most so that you can ensure you’re providing the best user experience.
+    7. Admin Access. The feature is to help you and those you assign roles to, to manage the site, block unreliable users, and perform other administrative functions.
+    8. Monetization. Do you want to monetize your social network or community? If so, having options to achieve this will be really important when creating your social network.
+
+
+
+
+
+
+
+•  Admin panel
+You as a social network website owner should either be aware of everything that happens on your platform or hire a responsible person for that. To manage processes properly, to keep a hand on interactions, to have access to statistics and to block/ delete any account, admin panel is required. It should demonstrate a convenient and intuitive interface as well as provide access to all the needed data.
+    • Database
+As your platform will grove, data storage will extend, too. A database will contain various types of data like text, video, audio, photo content etc. It should be flexible and scalable, powerful and well secured. To make the right choice between relational vs non-relational databases, PostgreSQL, Oracle, MySQL, and many others, extra research and some tips from the development team will be useful.
+    • Payment
+Do you plan to monetize your web app? Have you already chosen how exactly to monetize it? Anyway, to do so, you should integrate your programming solution with well-known payment gateways like PayPal and enable payment with credit cards.
+
