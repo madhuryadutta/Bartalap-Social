@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 use App\Models\PublicProfile;
+use Illuminate\Support\Facades\DB;
 use Session;
-
 
 class HomePageController extends Controller
 {
@@ -22,6 +18,7 @@ class HomePageController extends Controller
             session()->put('profile_pic', $ProfilePic);
             Session::put('profile_pic', $ProfilePic);
         }
+
         return view('home');
     }
 
@@ -30,24 +27,25 @@ class HomePageController extends Controller
 
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
-        $data = DB::select('call HomePostData(?,?,@outmsg)', array($current_user_id, $dsk));
+        $data = DB::select('call HomePostData(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
+
     public function trigger()
     {
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
-        $data = DB::select('call AutomatedTrigger(?,?,@outmsg)', array($current_user_id, $dsk));
+        $data = DB::select('call AutomatedTrigger(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
 }

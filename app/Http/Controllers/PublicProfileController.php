@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
-
 
 class PublicProfileController extends Controller
 {
@@ -22,44 +20,41 @@ class PublicProfileController extends Controller
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
 
-        $data = DB::select('call SelfProfileData(?,?,@outmsg)', array($current_user_id, $dsk));
+        $data = DB::select('call SelfProfileData(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
-
 
     public function saveMyProfileData(Request $request)
     {
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
 
-        $name  = $request['name'];
-        $username  = $request['username'];
-        $gender  = $request['gender'];
-        $occupation  = $request['occupation'];
-        $dob  = $request['dob'];
-        $current_city  = $request['current_city'];
-        $home_town  = $request['home_town'];
+        $name = $request['name'];
+        $username = $request['username'];
+        $gender = $request['gender'];
+        $occupation = $request['occupation'];
+        $dob = $request['dob'];
+        $current_city = $request['current_city'];
+        $home_town = $request['home_town'];
         $relationship_status = $request['relationship_status'];
-        $phone_no  = $request['phone_no'];
-        $about_me  = $request['about_me'];
+        $phone_no = $request['phone_no'];
+        $about_me = $request['about_me'];
 
-        $data = DB::select('call SaveSelfProfileData(?,?,?,?,?,?,?,?,?,?,?,?,@outmsg)', array($current_user_id, $name, $username, $gender, $occupation, $dob, $current_city, $home_town, $phone_no, $relationship_status, $about_me, $dsk));
+        $data = DB::select('call SaveSelfProfileData(?,?,?,?,?,?,?,?,?,?,?,?,@outmsg)', [$current_user_id, $name, $username, $gender, $occupation, $dob, $current_city, $home_town, $phone_no, $relationship_status, $about_me, $dsk]);
 
         $outmsg = DB::select('select @outmsg as message ');
 
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
-
-
 
     public function saveMyProfilePic(Request $request)
     {
@@ -67,7 +62,7 @@ class PublicProfileController extends Controller
         // print_r($request->all());
         // echo '</pre>';
         // exit;
-        $filename = "profilePic." . time() . "." . $request->file('file')->getClientOriginalExtension();;
+        $filename = 'profilePic.'.time().'.'.$request->file('file')->getClientOriginalExtension();
         $request->file('file')->storeAs('uploads', $filename);
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
@@ -75,28 +70,28 @@ class PublicProfileController extends Controller
         // echo $filename;
         // exit;
         $pic_category = 'profile_pic';
-        $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', array($current_user_id, $pic_category, $filename, $dsk));
+        $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', [$current_user_id, $pic_category, $filename, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
 
     public function saveMyCoverPic(Request $request)
     {
-        $filename = "CoverPic." . time() . "." . $request->file('file')->getClientOriginalExtension();;
+        $filename = 'CoverPic.'.time().'.'.$request->file('file')->getClientOriginalExtension();
         $request->file('file')->storeAs('uploads', $filename);
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
         $pic_category = 'cover_pic';
-        $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', array($current_user_id, $pic_category, $filename, $dsk));
+        $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', [$current_user_id, $pic_category, $filename, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
 }

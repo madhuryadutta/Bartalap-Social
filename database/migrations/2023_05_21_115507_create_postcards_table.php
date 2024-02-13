@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('msg_text', 127);
             $table->string('msg_reply', 127);
             $table->boolean('soft_del')->default(0);
-            //to who the question will be ask.The identity of the person who ask the question will be hidden  
+            //to who the question will be ask.The identity of the person who ask the question will be hidden
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

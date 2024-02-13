@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
-            $table->enum('gender', ["M", "F", "O"])->nullable();
+            $table->enum('gender', ['M', 'F', 'O'])->nullable();
             $table->string('occupation')->nullable();
             $table->date('dob')->nullable();
             $table->string('marital_status')->nullable();

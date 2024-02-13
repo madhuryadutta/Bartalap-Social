@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PublicProfile extends Model
 {
     use HasFactory;
-    protected $table = "profiles";
-    protected $primaryKey = "id";
+
+    protected $table = 'profiles';
+
+    protected $primaryKey = 'id';
 }

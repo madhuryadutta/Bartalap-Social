@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -19,12 +16,12 @@ class MessageController extends Controller
     {
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
-        $data = DB::select('call MessagePeople(?,?,@outmsg)', array($current_user_id, $dsk));
+        $data = DB::select('call MessagePeople(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
 
@@ -33,29 +30,31 @@ class MessageController extends Controller
         $user_id = $request['userid'];
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
-        $data = DB::select('call GetPeopleDetForMsgList(?,?,@outmsg)', array($user_id, $dsk));
+        $data = DB::select('call GetPeopleDetForMsgList(?,?,@outmsg)', [$user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id
-        );
+            'iam' => $current_user_id,
+        ];
         echo json_encode($resp_obj);
     }
+
     public function fetchMessages(Request $request)
     {
         $current_user_id = auth()->id();
         $user_id = $request['user_id'];
         $dsk = $this->dsk;
-        $data = DB::select('call getMessages(?,?,?,@outmsg)', array($current_user_id, $user_id, $dsk));
+        $data = DB::select('call getMessages(?,?,?,@outmsg)', [$current_user_id, $user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id
-        );
+            'iam' => $current_user_id,
+        ];
         echo json_encode($resp_obj);
     }
+
     public function sendMessage(Request $request)
     {
         $current_user_id = auth()->id();
@@ -66,13 +65,13 @@ class MessageController extends Controller
         $iMsgType = 'TXT';
 
         $dsk = $this->dsk;
-        $data = DB::select('call NewMessage(?,?,?,?,?,?,?,@outmsg)', array($current_user_id, $receiver, $msg_data, $iMsgRef, $iMsgType, $iMsgNo, $dsk));
+        $data = DB::select('call NewMessage(?,?,?,?,?,?,?,@outmsg)', [$current_user_id, $receiver, $msg_data, $iMsgRef, $iMsgType, $iMsgNo, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id
-        );
+            'iam' => $current_user_id,
+        ];
         echo json_encode($resp_obj);
     }
 }

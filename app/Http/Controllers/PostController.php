@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -26,33 +24,34 @@ class PostController extends Controller
 
         $ipostid = rand();
 
-        $filename = "post." . time() . "." . $request->file('file')->getClientOriginalExtension();
+        $filename = 'post.'.time().'.'.$request->file('file')->getClientOriginalExtension();
         $request->file('file')->storeAs('userposts', $filename);
 
-        $data = DB::select('call SaveUserPost(?,?,?,?,?,?,?,?,?,@outmsg)', array($current_user_id, $ipostid, $ipost_text, $filename, $ipost_location, $ivisibility, $ipromotional_status, $ipost_status, $dsk));
+        $data = DB::select('call SaveUserPost(?,?,?,?,?,?,?,?,?,@outmsg)', [$current_user_id, $ipostid, $ipost_text, $filename, $ipost_location, $ivisibility, $ipromotional_status, $ipost_status, $dsk]);
 
         $outmsg = DB::select('select @outmsg as message ');
 
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
+
     public function getSingleUserPosts(Request $request)
     {
         $zero_value = 0;
         $iusername = $request['username'];
         $dsk = $this->dsk;
 
-        $data = DB::select('call SingleUserPostsData(?,?,?,@outmsg)', array($zero_value, $iusername, $dsk));
+        $data = DB::select('call SingleUserPostsData(?,?,?,@outmsg)', [$zero_value, $iusername, $dsk]);
 
         $outmsg = DB::select('select @outmsg as message ');
 
-        $resp_obj = array(
+        $resp_obj = [
             'data' => $data,
-            'outmsg' => $outmsg
-        );
+            'outmsg' => $outmsg,
+        ];
         echo json_encode($resp_obj);
     }
 }
