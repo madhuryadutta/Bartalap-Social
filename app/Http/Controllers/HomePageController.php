@@ -24,13 +24,12 @@ class HomePageController extends Controller
 
     public function HomePostData()
     {
-
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
         $data = DB::select('call HomePostData(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -43,7 +42,7 @@ class HomePageController extends Controller
         $data = DB::select('call AutomatedTrigger(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);

@@ -32,7 +32,7 @@ class PostController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -49,7 +49,7 @@ class PostController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
