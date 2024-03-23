@@ -92,7 +92,6 @@ Route::middleware('auth')->group(function () {
     Route::any('getReactionOfMyown', [PostReactionAndCommentController::class, 'getReactionOfMyown'])->name('getReactionOfMyown');
     Route::any('newComment', [PostReactionAndCommentController::class, 'newComment'])->name('newComment.save');
     //-- END Reaction Controller
-
 });
 
 require __DIR__.'/auth.php';

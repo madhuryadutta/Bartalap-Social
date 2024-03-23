@@ -19,7 +19,7 @@ class MessageController extends Controller
         $data = DB::select('call MessagePeople(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -33,9 +33,9 @@ class MessageController extends Controller
         $data = DB::select('call GetPeopleDetForMsgList(?,?,@outmsg)', [$user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id,
+            'iam'    => $current_user_id,
         ];
         echo json_encode($resp_obj);
     }
@@ -48,9 +48,9 @@ class MessageController extends Controller
         $data = DB::select('call getMessages(?,?,?,@outmsg)', [$current_user_id, $user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id,
+            'iam'    => $current_user_id,
         ];
         echo json_encode($resp_obj);
     }
@@ -68,9 +68,9 @@ class MessageController extends Controller
         $data = DB::select('call NewMessage(?,?,?,?,?,?,?,@outmsg)', [$current_user_id, $receiver, $msg_data, $iMsgRef, $iMsgType, $iMsgNo, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
-            'iam' => $current_user_id,
+            'iam'    => $current_user_id,
         ];
         echo json_encode($resp_obj);
     }

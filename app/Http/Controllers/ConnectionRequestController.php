@@ -14,7 +14,6 @@ class ConnectionRequestController extends Controller
 
     public function sendRequest(Request $request)
     {
-
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
 
@@ -26,7 +25,7 @@ class ConnectionRequestController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -41,7 +40,7 @@ class ConnectionRequestController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -56,7 +55,7 @@ class ConnectionRequestController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -76,7 +75,7 @@ class ConnectionRequestController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);

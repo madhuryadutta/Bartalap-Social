@@ -16,14 +16,13 @@ class PublicProfileController extends Controller
 
     public function fetchMyProfileData()
     {
-
         $current_user_id = auth()->id();
         $dsk = $this->dsk;
 
         $data = DB::select('call SelfProfileData(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -50,7 +49,7 @@ class PublicProfileController extends Controller
         $outmsg = DB::select('select @outmsg as message ');
 
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -73,7 +72,7 @@ class PublicProfileController extends Controller
         $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', [$current_user_id, $pic_category, $filename, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -89,7 +88,7 @@ class PublicProfileController extends Controller
         $data = DB::select('call SavePicture(?,?,?,?,@outmsg)', [$current_user_id, $pic_category, $filename, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);

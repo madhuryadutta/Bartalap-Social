@@ -20,7 +20,7 @@ class ViewPeopleController extends Controller
         $data = DB::select('call FindConnections(?,?,@outmsg)', [$current_user_id, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
@@ -51,7 +51,7 @@ class ViewPeopleController extends Controller
         $data = DB::select('call ViewUserProfileData(?,?,@outmsg)', [$user_name, $dsk]);
         $outmsg = DB::select('select @outmsg as message ');
         $resp_obj = [
-            'data' => $data,
+            'data'   => $data,
             'outmsg' => $outmsg,
         ];
         echo json_encode($resp_obj);
